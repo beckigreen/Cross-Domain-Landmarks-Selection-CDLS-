@@ -10,7 +10,7 @@ clear;clc
 
 %%%%% addpath %%%%%
 addpath('./CDLS_functions/');
-addpath('./libsvm-weights-3.20/matlab');
+addpath('./libsvm-weights-3.24/matlab');
 
 %%%%% Data Loading and Preprocessing %%%%%
 load('./data/amazon_DeCAF_dslr_SURF.mat');
