@@ -28,7 +28,7 @@ alpha = ones(length(S_Label),1);
 beta  = ones(length(Ttest_Label),1);
 
 %%%%% Construct Pt by PCA %%%%%
-[Pt,~,~] = princomp([T';Ttest']);
+[Pt,~,~] = pca([T';Ttest']);
 Pt = Pt(:,1:PCA_dimension);
 
 %%%%% Project Target Intances on Target PCA Subspace %%%%%
@@ -49,8 +49,10 @@ for i = 1:iter
     inverse_part = S*(Hs1+Hs2+Hs3)*S';
     non_inverse_part = S*(Hsl1+Hsl2+Hsl3)*T' + S*(Hsu1+Hsu2+Hsu3)*Ttest';
     
-    regularizer_weight = 0.5;
-	Ps = (( inverse_part + regularizer_weight*eye(size(S,1)) )\(non_inverse_part))*Pt;
+    regularizer_weight = 0.5;	
+    Ps = (inverse_part + regularizer_weight*eye(size(S,1))); 
+    Ps = Ps\non_inverse_part;
+    Ps = Ps*Pt;
 	
 	%%%%% Project Source Intances on Target PCA Subspace %%%%%
 	co_Xs = Ps'*S;
